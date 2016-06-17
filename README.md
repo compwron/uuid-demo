@@ -15,5 +15,5 @@ To run tests:
 
 To post against the launched API:
 ````
- echo '{"bar": "some value"' | curl -H 'Content-Type: application/json' -d @- http://localhost:8080/foos
+ echo '{"bar": "some value"}' | curl -H 'Content-Type: application/json' -d @- http://localhost:8080/foos
 ````
