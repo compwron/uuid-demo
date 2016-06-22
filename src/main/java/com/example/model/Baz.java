@@ -1,32 +1,34 @@
 package com.example.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Entity
 public class Baz {
     @Id
-    @GeneratedValue
-    private Long id;
-
-    public Long getFooId() {
-        return fooId;
-    }
-
-    public void setFooId(Long fooId) {
-        this.fooId = fooId;
-    }
-
-    private Long fooId;
+    private UUID uuid;
+    private UUID fooUuid;
     private String asdf;
 
-    public Long getId() {
-        return id;
+    public Baz(){
+        this.uuid = UUID.randomUUID();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public UUID getFooUuid() {
+        return fooUuid;
+    }
+
+    public void setFooUuid(UUID fooUuid) {
+        this.fooUuid = fooUuid;
     }
 
     public String getAsdf() {

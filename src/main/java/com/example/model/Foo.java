@@ -1,29 +1,18 @@
 package com.example.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
 public class Foo {
 
-    public Foo() {
-        this.uuid = UUID.randomUUID();
-    }
-
     @Id
-    @GeneratedValue
-    private Long id;
     private UUID uuid;
     private String bar;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Foo() {
+        this.uuid = UUID.randomUUID();
     }
 
     public UUID getUuid() {
@@ -31,7 +20,7 @@ public class Foo {
     }
 
     public void setUuid(UUID uuid) {
-//        JPA needs the setter but we don't want UUID to be settable
+//      not externally settable via API
     }
 
     public String getBar() {

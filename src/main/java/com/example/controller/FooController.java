@@ -44,7 +44,7 @@ public class FooController {
     @RequestMapping(value = "/foos/{uuid}/bazzes", method = RequestMethod.POST)
     public HttpEntity<Object> createPaymentMethod(@PathVariable UUID uuid, @RequestBody Baz baz) {
         // Validation goes here
-        baz.setFooId(fooRepository.findByUuid(uuid).getId());
+        baz.setFooUuid(uuid);
         Baz savedBaz = bazRepository.save(baz);
         return new ResponseEntity(savedBaz, HttpStatus.CREATED);
     }
