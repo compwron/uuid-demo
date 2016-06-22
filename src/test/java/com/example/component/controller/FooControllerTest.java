@@ -1,10 +1,11 @@
-package com.example.controller;
+package com.example.component.controller;
 
 import com.example.ExampleFooApi;
 import com.example.model.Foo;
 import com.example.repository.FooRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hamcrest.core.Is;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -103,5 +104,11 @@ public class FooControllerTest {
 
         JsonNode createResponse = new ObjectMapper().readTree(mvcResult.getResponse().getContentAsString());
         assertThat(createResponse.get("asdf").asText(), is("1234"));
+    }
+
+    @Test
+    public void returnsNotFoundWhenFooIsNotFound() throws Exception {
+        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/foos/" + UUID.randomUUID())).andReturn();
+        assertThat(result.getResponse().getStatus(), Is.is(404));
     }
 }
