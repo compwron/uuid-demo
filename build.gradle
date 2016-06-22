@@ -27,9 +27,9 @@ dependencies {
     compile "org.springframework.boot:spring-boot"
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.projectlombok:lombok:1.16.8"
     runtime "com.h2database:h2:1.4.192"
 
-//    testCompile "org.springframework:spring-test"
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile "org.json:org.json:2.0"
 }
