@@ -17,3 +17,5 @@ To post against the launched API:
 ````
  echo '{"bar": "some value"}' | curl -H 'Content-Type: application/json' -d @- http://localhost:8080/foos
 ````
+
+To use this codebase in Intellij you may need to enable "Use Annotation Processing" in order for Intellij to recognize the Lombok generated code.

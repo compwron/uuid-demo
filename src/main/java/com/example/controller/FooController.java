@@ -4,6 +4,10 @@ import com.example.model.Baz;
 import com.example.model.Foo;
 import com.example.repository.BazRepository;
 import com.example.repository.FooRepository;
+import com.example.resource.BazResource;
+import com.example.resource.FooResource;
+import com.example.resource.assembler.BazAssembler;
+import com.example.resource.assembler.FooAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -18,18 +22,23 @@ public class FooController {
 
     private final FooRepository fooRepository;
     private final BazRepository bazRepository;
+    private FooAssembler fooAssembler;
+    private BazAssembler bazAssembler;
 
     @Autowired
-    public FooController(FooRepository fooRepository, BazRepository bazRepository) {
+    public FooController(FooRepository fooRepository, BazRepository bazRepository, FooAssembler fooAssembler, BazAssembler bazAssembler) {
         this.fooRepository = fooRepository;
         this.bazRepository = bazRepository;
+        this.fooAssembler = fooAssembler;
+        this.bazAssembler = bazAssembler;
     }
 
     @RequestMapping(value = "/foos", method = RequestMethod.POST)
     public HttpEntity<Object> createFoo(@RequestBody Foo foo) {
         // validation goes here
         Foo savedFoo = fooRepository.save(foo);
-        return new ResponseEntity(savedFoo, HttpStatus.CREATED);
+        FooResource resource = fooAssembler.toResource(savedFoo);
+        return new ResponseEntity(resource, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/foos/{uuid}", method = RequestMethod.GET)
@@ -38,7 +47,8 @@ public class FooController {
         if (foundFoo == null) {
             return new ResponseEntity("", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity(foundFoo, HttpStatus.OK);
+        FooResource resource = fooAssembler.toResource(foundFoo);
+        return new ResponseEntity(resource, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/foos", method = RequestMethod.GET)
@@ -53,6 +63,7 @@ public class FooController {
         }
         baz.setFooUuid(uuid);
         Baz savedBaz = bazRepository.save(baz);
-        return new ResponseEntity(savedBaz, HttpStatus.CREATED);
+        BazResource resource = bazAssembler.toResource(savedBaz);
+        return new ResponseEntity(resource, HttpStatus.CREATED);
     }
 }

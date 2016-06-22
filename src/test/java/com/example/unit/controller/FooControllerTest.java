@@ -19,7 +19,7 @@ public class FooControllerTest {
     @Test
     public void creatingBazForMissingFooReturnsNotFound() {
         FooRepository fakeFooRepository = mock(FooRepository.class);
-        FooController fooController = new FooController(fakeFooRepository, null);
+        FooController fooController = new FooController(fakeFooRepository, null, null, null);
         UUID nonexistentFoo = UUID.randomUUID();
         ResponseEntity<Object> responseEntity = fooController.createBaz(nonexistentFoo, new Baz());
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.UNPROCESSABLE_ENTITY));

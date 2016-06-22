@@ -57,7 +57,8 @@ public class FooControllerTest {
         assertThat(createResult.getResponse().getStatus(), is(201));
 
         JsonNode createResponse = new ObjectMapper().readTree(createResult.getResponse().getContentAsString());
-        assertThat(createResponse.get("bar").asText(), is("some value"));
+        assertThat(createResponse.get("bar").asText(), is("some value CALCULATED"));
+        assertThat(createResponse.get("calculatedBar").asText(), is("some value ALSO CALCULATED"));
 
         String uuid = createResponse.get("uuid").asText();
         assertThat(UUID.fromString(uuid), is(not(nullValue())));
@@ -66,7 +67,8 @@ public class FooControllerTest {
         assertThat(getResult.getResponse().getStatus(), is(200));
 
         JsonNode getResponse = new ObjectMapper().readTree(getResult.getResponse().getContentAsString());
-        assertThat(createResponse.get("bar").asText(), is("some value"));
+        assertThat(createResponse.get("bar").asText(), is("some value CALCULATED"));
+        assertThat(createResponse.get("calculatedBar").asText(), is("some value ALSO CALCULATED"));
         assertThat(getResponse.get("uuid").asText(), is(uuid));
     }
 
@@ -104,6 +106,7 @@ public class FooControllerTest {
 
         JsonNode createResponse = new ObjectMapper().readTree(mvcResult.getResponse().getContentAsString());
         assertThat(createResponse.get("asdf").asText(), is("1234"));
+        assertThat(createResponse.get("calculatedAsdf").asText(), is("2468 CALCULATED"));
     }
 
     @Test
